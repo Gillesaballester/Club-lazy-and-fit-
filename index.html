@@ -1928,16 +1928,20 @@
     document.body.style.overflow = '';
   }
 
+  var isTouchDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+
   document.querySelectorAll('.menu-card').forEach(function(card) {
     var nameEl = card.querySelector('.card-name');
     if (!nameEl) return;
     var name = nameEl.textContent.trim();
     if (!smoothieData[name]) return;
     var hoverTimer;
-    card.addEventListener('mouseenter', function() {
-      hoverTimer = setTimeout(function() { openSmoothiePopup(name); }, 300);
-    });
-    card.addEventListener('mouseleave', function() { clearTimeout(hoverTimer); });
+    if (!isTouchDevice) {
+      card.addEventListener('mouseenter', function() {
+        hoverTimer = setTimeout(function() { openSmoothiePopup(name); }, 300);
+      });
+      card.addEventListener('mouseleave', function() { clearTimeout(hoverTimer); });
+    }
     card.addEventListener('click', function() { openSmoothiePopup(name); });
   });
 
@@ -1947,10 +1951,12 @@
     var name = titleEl.textContent.trim();
     if (!smoothieData[name]) return;
     var hoverTimer;
-    card.addEventListener('mouseenter', function() {
-      hoverTimer = setTimeout(function() { openSmoothiePopup(name); }, 300);
-    });
-    card.addEventListener('mouseleave', function() { clearTimeout(hoverTimer); });
+    if (!isTouchDevice) {
+      card.addEventListener('mouseenter', function() {
+        hoverTimer = setTimeout(function() { openSmoothiePopup(name); }, 300);
+      });
+      card.addEventListener('mouseleave', function() { clearTimeout(hoverTimer); });
+    }
     card.addEventListener('click', function() { openSmoothiePopup(name); });
   });
 
@@ -1958,10 +1964,12 @@
     var name = card.getAttribute('data-popup');
     if (!name || !smoothieData[name]) return;
     var hoverTimer;
-    card.addEventListener('mouseenter', function() {
-      hoverTimer = setTimeout(function() { openSmoothiePopup(name); }, 300);
-    });
-    card.addEventListener('mouseleave', function() { clearTimeout(hoverTimer); });
+    if (!isTouchDevice) {
+      card.addEventListener('mouseenter', function() {
+        hoverTimer = setTimeout(function() { openSmoothiePopup(name); }, 300);
+      });
+      card.addEventListener('mouseleave', function() { clearTimeout(hoverTimer); });
+    }
     card.addEventListener('click', function() { openSmoothiePopup(name); });
   });
 

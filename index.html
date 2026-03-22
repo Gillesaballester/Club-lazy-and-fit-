@@ -1332,7 +1332,34 @@
   .popup-price { font-family: 'Baloo 2', cursive; font-weight: 800; font-size: 2rem; color: var(--teal); }
   .popup-close { width: 38px; height: 38px; background: var(--marble); border-radius: 50%; border: none; font-size: 1.1rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background 0.2s, transform 0.2s; color: var(--dark); }
   .popup-close:hover { background: #e8e8e2; transform: rotate(90deg); }
-
+/* Cocktail image popup */
+  .cocktail-row { position: relative; cursor: pointer; }
+  .cocktail-img-popup {
+    display: none;
+    position: absolute;
+    right: 105%;
+    top: 50%;
+    transform: translateY(-50%);
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 12px 40px rgba(0,0,0,0.15);
+    padding: 10px;
+    z-index: 300;
+    width: 140px;
+    pointer-events: none;
+  }
+  .cocktail-img-popup img { width: 100%; border-radius: 10px; display: block; }
+  .cocktail-img-popup .popup-label {
+    font-weight: 700;
+    font-size: 0.8rem;
+    color: var(--dark);
+    margin-top: 6px;
+    text-align: center;
+  }
+  @media (hover: hover) {
+    .cocktail-row:hover .cocktail-img-popup { display: block; }
+  }
+  .cocktail-row.popup-active .cocktail-img-popup { display: block; }
 </style>
 </head>
 <body>
@@ -1533,13 +1560,28 @@
             </div>
             <div class="boisson-badge cocktail">7€</div>
           </div>
-          <div class="cocktail-list">
-            <div class="cocktail-row"><span>⚡</span><span class="cocktail-name">Energy Booster</span></div>
-            <div class="cocktail-row"><span>🌿</span><span class="cocktail-name">Booster Aloé Citron</span></div>
-            <div class="cocktail-row"><span>🍊</span><span class="cocktail-name">Spritz Twist</span></div>
-            <div class="cocktail-row"><span>❓</span><span class="cocktail-name mystery">Cocktail du moment</span></div>
+         <div class="cocktail-list">
+            <div class="cocktail-row">
+              <span>⚡</span><span class="cocktail-name">Energy Booster</span>
+              <div class="cocktail-img-popup">
+                <img src="https://raw.githubusercontent.com/Gillesaballester/Club-lazy-and-fit-/main/1000032496-removebg-preview(1).png" alt="Energy Booster">
+                <div class="popup-label">Energy Booster</div>
+              </div>
+            </div>
+            <div class="cocktail-row">
+              <span>🌿</span><span class="cocktail-name">Booster Aloé Citron</span>
+            </div>
+            <div class="cocktail-row">
+              <span>🍊</span><span class="cocktail-name">Spritz Twist</span>
+              <div class="cocktail-img-popup">
+                <img src="https://raw.githubusercontent.com/Gillesaballester/Club-lazy-and-fit-/main/file_00000000dec462468e752f8a1a4161d6.png" alt="Spritz Twist">
+                <div class="popup-label">Spritz Twist</div>
+              </div>
+            </div>
+            <div class="cocktail-row">
+              <span>❓</span><span class="cocktail-name mystery">Cocktail du moment</span>
+            </div>
           </div>
-        </div>
       </div>
     </div>
 
@@ -1970,6 +2012,20 @@
     if (e.key === 'Escape') closeSmoothiePopup();
   });
 </script>
-
+ <script>
+    // Popup cocktail mobile (clic)
+    document.querySelectorAll('.cocktail-row').forEach(row => {
+      row.addEventListener('click', () => {
+        const isActive = row.classList.contains('popup-active');
+        document.querySelectorAll('.cocktail-row').forEach(r => r.classList.remove('popup-active'));
+        if (!isActive) row.classList.add('popup-active');
+      });
+    });
+    document.addEventListener('click', e => {
+      if (!e.target.closest('.cocktail-row')) {
+        document.querySelectorAll('.cocktail-row').forEach(r => r.classList.remove('popup-active'));
+      }
+    });
+  </script>
 </body>
 </html>
